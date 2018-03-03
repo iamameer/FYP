@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".list_activity" />
+        <activity android:name=".detail_activity" />
+        <activity android:name=".appointment_activity" />
+        <activity android:name=".inquiry_activity" />
+        <activity android:name=".check_activity" />
+        <activity android:name=".checkBmi_activity"></activity>
     </application>
 
 </manifest>
