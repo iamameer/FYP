@@ -21,7 +21,18 @@
         <activity android:name=".appointment_activity" />
         <activity android:name=".inquiry_activity" />
         <activity android:name=".check_activity" />
-        <activity android:name=".checkBmi_activity"></activity>
+        <activity android:name=".checkBmi_activity" />
+
+        <provider
+            android:name=".non_activity.ContentProvider"
+            android:authorities="fyp.medcare.non_activity"
+            android:enabled="true"
+            android:exported="true" />
+        <provider
+            android:name=".non_activity.MyContentProvider"
+            android:authorities="fyp.medcare.non_activity.MyContentProvider"
+            android:enabled="true"
+            android:exported="true"></provider>
     </application>
 
 </manifest>
