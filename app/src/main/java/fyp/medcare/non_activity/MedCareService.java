@@ -1,8 +1,18 @@
 package fyp.medcare.non_activity;
 
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+
 /**
  * Created by Ameer Sorne on 3/3/2018.
  */
 
-public class MedCareService {
+public class MedCareService extends Service {
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 }
