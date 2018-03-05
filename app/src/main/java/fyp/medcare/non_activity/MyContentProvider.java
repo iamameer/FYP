@@ -14,6 +14,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
@@ -107,14 +108,69 @@ public class MyContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        // TODO: Implement this to handle query requests from clients.
-        throw new UnsupportedOperationException("Not yet implemented");
+        //Handle query requests from clients.
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(AppointmentContract.AppointmentEntry.TABLE_NAME);
+
+        int uriType = sURIMatcher.match(uri);
+
+        switch (uriType){
+            case APPOINTMENT_ID:
+                queryBuilder.appendWhere(AppointmentContract.AppointmentEntry.COLUMN_NAME_ID+"="
+                        +uri.getLastPathSegment());
+                break;
+
+            case APPOINTMENT:
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI");
+        }
+
+        Cursor cursor = queryBuilder.query(myDB.getReadableDatabase(),
+                projection,selection,selectionArgs,null,null,sortOrder);
+        cursor.setNotificationUri(getContext().getContentResolver(),uri);
+        return cursor;
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        // TODO: Implement this to handle requests to update one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        //Handle requests to update one or more rows.
+        int uriType = sURIMatcher.match(uri);
+        SQLiteDatabase sqlDB = myDB.getWritableDatabase();
+
+        int rowsUpdated = 0;
+
+        switch (uriType){
+            case APPOINTMENT:
+                rowsUpdated =
+                        sqlDB.update(AppointmentContract.AppointmentEntry.TABLE_NAME,
+                                values,
+                                selection,
+                                selectionArgs);
+                break;
+            case APPOINTMENT_ID:
+                String id = uri.getLastPathSegment();
+                if(TextUtils.isEmpty(selection)){
+                    rowsUpdated =
+                            sqlDB.update(AppointmentContract.AppointmentEntry.TABLE_NAME,
+                                    values,
+                                    AppointmentContract.AppointmentEntry.COLUMN_NAME_ID+"="+id,
+                                    null);
+                }else{
+                    rowsUpdated =
+                            sqlDB.update(AppointmentContract.AppointmentEntry.TABLE_NAME,
+                                    values,
+                                    AppointmentContract.AppointmentEntry.COLUMN_NAME_ID+"="+id
+                                            + " and "
+                                            + selection,
+                                    selectionArgs);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: "+uri);
+        }
+        getContext().getContentResolver().notifyChange(uri,null);
+        return rowsUpdated;
     }
 }
