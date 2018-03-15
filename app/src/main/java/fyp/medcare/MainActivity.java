@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         imgMainList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"=MainActivity imgMainList onClick()");
                 Intent intent = new Intent(MainActivity.this,list_activity.class);
                 startActivity(intent);
             }
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         imgMainCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"=MainActivity imgMainCheck onClick()");
                 Intent intent = new Intent(MainActivity.this,check_activity.class);
                 startActivity(intent);
             }
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         imgMainCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"=MainActivity imgMainCall onClick()");
                 emergency_call();
             }
         });

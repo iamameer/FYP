@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,19 +26,21 @@ import java.util.List;
 public class list_activity extends AppCompatActivity {
 
     //Global Variables
-    private TextView txtListSearch;
-    private ImageView imgListSearch;
+    private EditText txtListSearch;
+    private ImageView imgListSearch, imgListBack;
     private ListView listView;
 
     private final static String TAG = "MEDCARE";
 
     //Initialising variables
     private void init(){
-        txtListSearch = (TextView) findViewById(R.id.txtListSearch);
+        txtListSearch = (EditText) findViewById(R.id.txtListSearch);
         imgListSearch = (ImageView) findViewById(R.id.imgListSearch);
+        imgListBack = (ImageView) findViewById(R.id.imgDetailBack);
         listView = (ListView) findViewById(R.id.listView);
 
         //populating listView
+        Log.d(TAG,"=list_activity Retrieving data from database");
     }
 
     //setting up methods
@@ -64,7 +67,15 @@ public class list_activity extends AppCompatActivity {
         imgListSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"=list_activity imgListSearch onClick()");
+            }
+        });
 
+        //Back ImageView clicked
+        imgListBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG,"=list_activity imgListBack onClick()");
             }
         });
 
@@ -72,7 +83,7 @@ public class list_activity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Log.d(TAG,"=list_activity listView item selected: \n"+i+") "+listView.getItemAtPosition(i).toString());
             }
         });
     }
