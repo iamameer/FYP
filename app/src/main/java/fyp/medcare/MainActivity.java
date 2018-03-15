@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Global Variables
     private ImageView imgMainList, imgMainCheck, imgMainCall;
+
     private final static String TAG = "MEDCARE";
 
     //Initialising variables
