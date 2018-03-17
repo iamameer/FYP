@@ -76,6 +76,7 @@ public class list_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"=list_activity imgListBack onClick()");
+                finish();
             }
         });
 
