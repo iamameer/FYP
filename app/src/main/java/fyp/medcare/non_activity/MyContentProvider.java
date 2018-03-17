@@ -25,16 +25,16 @@ public class MyContentProvider extends ContentProvider {
 
     private static final String AUTHORITY = "fyp.medcare.non_activity.MyContentProvider";
     public static final Uri CONTENT_URI =
-            Uri.parse("content://" + AUTHORITY + "/" + AppointmentContract.AppointmentEntry.TABLE_NAME);
+            Uri.parse("content://" + AUTHORITY + "/" + HospitalContract.HospitalEntry.TABLE_NAME);
 
-    public static final int APPOINTMENT = 1;
-    public static final int APPOINTMENT_ID = 2;
+    public static final int HOSPITAL = 1;
+    public static final int HOSPITAL_ID = 2;
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
-        sURIMatcher.addURI(AUTHORITY, AppointmentContract.AppointmentEntry.TABLE_NAME, APPOINTMENT);
-        sURIMatcher.addURI(AUTHORITY, AppointmentContract.AppointmentEntry.TABLE_NAME+"/#",APPOINTMENT_ID);
+        sURIMatcher.addURI(AUTHORITY, HospitalContract.HospitalEntry.TABLE_NAME, HOSPITAL);
+        sURIMatcher.addURI(AUTHORITY, HospitalContract.HospitalEntry.TABLE_NAME+"/#", HOSPITAL_ID);
     }
 
     //empty constructor
@@ -49,20 +49,20 @@ public class MyContentProvider extends ContentProvider {
         int rowsDeleted = 0;
 
         switch (uriType){
-            case APPOINTMENT:
-                rowsDeleted = sqlDB.delete(AppointmentContract.AppointmentEntry.TABLE_NAME,
+            case HOSPITAL:
+                rowsDeleted = sqlDB.delete(HospitalContract.HospitalEntry.TABLE_NAME,
                         selection,
                         selectionArgs);
                 break;
-            case APPOINTMENT_ID:
+            case HOSPITAL_ID:
                 String id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection)){
-                    rowsDeleted = sqlDB.delete(AppointmentContract.AppointmentEntry.TABLE_NAME,
-                            AppointmentContract.AppointmentEntry.COLUMN_NAME_ID+"="+id,
+                    rowsDeleted = sqlDB.delete(HospitalContract.HospitalEntry.TABLE_NAME,
+                            HospitalContract.HospitalEntry.COLUMN_NAME_ID+"="+id,
                             null);
                 }else{
-                    rowsDeleted = sqlDB.delete(AppointmentContract.AppointmentEntry.TABLE_NAME,
-                            AppointmentContract.AppointmentEntry.COLUMN_NAME_ID+"="+id,
+                    rowsDeleted = sqlDB.delete(HospitalContract.HospitalEntry.TABLE_NAME,
+                            HospitalContract.HospitalEntry.COLUMN_NAME_ID+"="+id,
                             selectionArgs);
                 }
                 break;
@@ -88,14 +88,14 @@ public class MyContentProvider extends ContentProvider {
 
         long id = 0;
         switch (uriType){
-            case APPOINTMENT:
-                id = sqlDB.insert(AppointmentContract.AppointmentEntry.TABLE_NAME,null,values);
+            case HOSPITAL:
+                id = sqlDB.insert(HospitalContract.HospitalEntry.TABLE_NAME,null,values);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI:"+uri);
         }
         getContext().getContentResolver().notifyChange(uri,null);
-        return Uri.parse(AppointmentContract.AppointmentEntry.TABLE_NAME+"/"+id);
+        return Uri.parse(HospitalContract.HospitalEntry.TABLE_NAME+"/"+id);
     }
 
     @Override
@@ -110,17 +110,17 @@ public class MyContentProvider extends ContentProvider {
                         String[] selectionArgs, String sortOrder) {
         //Handle query requests from clients.
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setTables(AppointmentContract.AppointmentEntry.TABLE_NAME);
+        queryBuilder.setTables(HospitalContract.HospitalEntry.TABLE_NAME);
 
         int uriType = sURIMatcher.match(uri);
 
         switch (uriType){
-            case APPOINTMENT_ID:
-                queryBuilder.appendWhere(AppointmentContract.AppointmentEntry.COLUMN_NAME_ID+"="
+            case HOSPITAL_ID:
+                queryBuilder.appendWhere(HospitalContract.HospitalEntry.COLUMN_NAME_ID+"="
                         +uri.getLastPathSegment());
                 break;
 
-            case APPOINTMENT:
+            case HOSPITAL:
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI");
@@ -142,26 +142,26 @@ public class MyContentProvider extends ContentProvider {
         int rowsUpdated = 0;
 
         switch (uriType){
-            case APPOINTMENT:
+            case HOSPITAL:
                 rowsUpdated =
-                        sqlDB.update(AppointmentContract.AppointmentEntry.TABLE_NAME,
+                        sqlDB.update(HospitalContract.HospitalEntry.TABLE_NAME,
                                 values,
                                 selection,
                                 selectionArgs);
                 break;
-            case APPOINTMENT_ID:
+            case HOSPITAL_ID:
                 String id = uri.getLastPathSegment();
                 if(TextUtils.isEmpty(selection)){
                     rowsUpdated =
-                            sqlDB.update(AppointmentContract.AppointmentEntry.TABLE_NAME,
+                            sqlDB.update(HospitalContract.HospitalEntry.TABLE_NAME,
                                     values,
-                                    AppointmentContract.AppointmentEntry.COLUMN_NAME_ID+"="+id,
+                                    HospitalContract.HospitalEntry.COLUMN_NAME_ID+"="+id,
                                     null);
                 }else{
                     rowsUpdated =
-                            sqlDB.update(AppointmentContract.AppointmentEntry.TABLE_NAME,
+                            sqlDB.update(HospitalContract.HospitalEntry.TABLE_NAME,
                                     values,
-                                    AppointmentContract.AppointmentEntry.COLUMN_NAME_ID+"="+id
+                                    HospitalContract.HospitalEntry.COLUMN_NAME_ID+"="+id
                                             + " and "
                                             + selection,
                                     selectionArgs);

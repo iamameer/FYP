@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     //public constructor
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, AppointmentContract.AppointmentEntry.DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, HospitalContract.HospitalEntry.DATABASE_NAME, null, DATABASE_VERSION);
         myCR = context.getContentResolver();
     }
 
@@ -39,38 +39,44 @@ public class DBHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String SQL_CREATE_ENTRIES = "CREATE TABLE" +
-                AppointmentContract.AppointmentEntry.TABLE_NAME + "(" +
-                AppointmentContract.AppointmentEntry.COLUMN_NAME_ID + "INTEGER PRIMARY KEY,"+
-                AppointmentContract.AppointmentEntry.COLUMN_NAME_DATE + "TEXT,"+
-                AppointmentContract.AppointmentEntry.COLUMN_NAME_DESCRIPTION + "TEXT,"+
-                AppointmentContract.AppointmentEntry.COLUMN_NAME_VENUE + "TEXT" + ")";
+                HospitalContract.HospitalEntry.TABLE_NAME + "(" +
+                HospitalContract.HospitalEntry.COLUMN_NAME_ID + "INTEGER PRIMARY KEY,"+
+                HospitalContract.HospitalEntry.COLUMN_NAME_NAME + "TEXT,"+
+                HospitalContract.HospitalEntry.COLUMN_NAME_DESCRIPTION + "TEXT,"+
+                HospitalContract.HospitalEntry.COLUMN_NAME_LATITUDE + "FLOAT" +
+                HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE + "FLOAT" +
+                HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE + "FLOAT" +")";
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
     }
 
     //this method detect any upgrade version
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ AppointmentContract.AppointmentEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ HospitalContract.HospitalEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 
-    //this method add a new Appointment into the database, respective column
-    public void addAppointment(Appointment appointment){
+    //this method add a new Hospital into the database, respective column
+    public void addHospital(Hospital hospital){
         ContentValues values = new ContentValues();
-        values.put(AppointmentContract.AppointmentEntry.COLUMN_NAME_DATE, appointment.getDate());
-        values.put(AppointmentContract.AppointmentEntry.COLUMN_NAME_DESCRIPTION, appointment.getDescription());
-        values.put(AppointmentContract.AppointmentEntry.COLUMN_NAME_VENUE, appointment.getVenue());
+        values.put(HospitalContract.HospitalEntry.COLUMN_NAME_NAME, hospital.getName());
+        values.put(HospitalContract.HospitalEntry.COLUMN_NAME_DESCRIPTION, hospital.getDescription());
+        values.put(HospitalContract.HospitalEntry.COLUMN_NAME_LATITUDE, hospital.getLatitude());
+        values.put(HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE, hospital.getLongitude());
+        values.put(HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE, hospital.getDistance());
 
         myCR.insert(MyContentProvider.CONTENT_URI,values);
     }
 
-    //this method return a Appointment as object
-    public Appointment findAppointment(int _id){
+    //this method return a Hospital as object
+    public Hospital findHospital(int _id){
         String[] projection = {
-            AppointmentContract.AppointmentEntry.COLUMN_NAME_ID,
-            AppointmentContract.AppointmentEntry.COLUMN_NAME_DATE,
-            AppointmentContract.AppointmentEntry.COLUMN_NAME_DESCRIPTION,
-            AppointmentContract.AppointmentEntry.COLUMN_NAME_VENUE};
+            HospitalContract.HospitalEntry.COLUMN_NAME_ID,
+            HospitalContract.HospitalEntry.COLUMN_NAME_NAME,
+            HospitalContract.HospitalEntry.COLUMN_NAME_DESCRIPTION,
+            HospitalContract.HospitalEntry.COLUMN_NAME_LATITUDE,
+            HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE,
+            HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE};
 
         String selection = "_id = \"" +_id+"\"";
 
@@ -81,27 +87,29 @@ public class DBHelper extends SQLiteOpenHelper{
                 null,
                 null);
 
-        Appointment appointment = new Appointment();
+        Hospital hospital = new Hospital();
 
         try {
             if (cursor.moveToFirst()){
                 cursor.moveToFirst();
-                appointment.set_id(Integer.parseInt(cursor.getString(0)));
-                appointment.setDate(cursor.getString(1));
-                appointment.setDescription(cursor.getString(2));
-                appointment.setVenue(cursor.getString(3));
+                hospital.set_id(Integer.parseInt(cursor.getString(0)));
+                hospital.setName(cursor.getString(1));
+                hospital.setDescription(cursor.getString(2));
+                hospital.setLatitude(cursor.getFloat(3));
+                hospital.setLongitude(cursor.getFloat(4));
+                hospital.setDistance(cursor.getFloat(5));
                 cursor.close();
             }else{
-                appointment = null;
+                hospital = null;
             }
         }catch (Exception e){
             Log.d("MedCare",e.toString());
         }
-        return appointment;
+        return hospital;
     }
 
     //this method deletes the specified record
-    public boolean deletAppointment(int _id){
+    public boolean deleteHospital(int _id){
         boolean result = false;
         String selection = "_id = \"" +_id+ "\"";
 
@@ -111,14 +119,12 @@ public class DBHelper extends SQLiteOpenHelper{
         return result;
     }
 
-    //this method update the current Appointment
-    public boolean updateAppointment(int _id,String date, String description, String venue){
+    //this method update the distance of current Hospital
+    public boolean updateHospitalDistance(int _id,float distance){
         boolean result = false;
         String selection = "_id = \""+_id+" \"";
         ContentValues values = new ContentValues();
-        values.put(AppointmentContract.AppointmentEntry.COLUMN_NAME_DATE,date);
-        values.put(AppointmentContract.AppointmentEntry.COLUMN_NAME_DESCRIPTION,description);
-        values.put(AppointmentContract.AppointmentEntry.COLUMN_NAME_VENUE,venue);
+        values.put(HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE,distance);
 
         int rowsUpdated = myCR.update(MyContentProvider.CONTENT_URI,values,selection,null);
 
@@ -126,29 +132,33 @@ public class DBHelper extends SQLiteOpenHelper{
         return result;
     }
 
-    //this method returns array of Appointment(object) to be displayed
-    public ArrayList<Appointment> display(){
+    //this method returns array of Hospital(object) to be displayed
+    public ArrayList<Hospital> display(){
         String[] projection = {
-                AppointmentContract.AppointmentEntry.COLUMN_NAME_ID,
-                AppointmentContract.AppointmentEntry.COLUMN_NAME_DATE,
-                AppointmentContract.AppointmentEntry.COLUMN_NAME_DESCRIPTION,
-                AppointmentContract.AppointmentEntry.COLUMN_NAME_VENUE};
+                HospitalContract.HospitalEntry.COLUMN_NAME_ID,
+                HospitalContract.HospitalEntry.COLUMN_NAME_NAME,
+                HospitalContract.HospitalEntry.COLUMN_NAME_DESCRIPTION,
+                HospitalContract.HospitalEntry.COLUMN_NAME_LATITUDE,
+                HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE,
+                HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE};
 
         Cursor cursor = myCR.query(
                 MyContentProvider.CONTENT_URI,projection,null,null,null);
 
-        ArrayList<Appointment> result = new ArrayList<Appointment>();
+        ArrayList<Hospital> result = new ArrayList<Hospital>();
         try{
             if(cursor.moveToFirst()){
                 Log.d("MedCare","cursor : inside IF");
                 do{
-                    Appointment appointment = new Appointment();
+                    Hospital hospital = new Hospital();
                     Log.d("MyTracker","cursor: inside DO");
-                    appointment.set_id(Integer.parseInt(cursor.getString(0)));
-                    appointment.setDate(cursor.getString(1));
-                    appointment.setDescription(cursor.getString(2));
-                    appointment.setVenue(cursor.getString(3));
-                    result.add(appointment);
+                    hospital.set_id(Integer.parseInt(cursor.getString(0)));
+                    hospital.setName(cursor.getString(1));
+                    hospital.setDescription(cursor.getString(2));
+                    hospital.setLatitude(cursor.getFloat(3));
+                    hospital.setLongitude(cursor.getFloat(4));
+                    hospital.setDistance(cursor.getFloat(5));
+                    result.add(hospital);
                 }while(cursor.moveToNext());
             }cursor.close();
         }catch (Exception e){
