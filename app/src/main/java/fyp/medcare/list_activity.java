@@ -36,7 +36,7 @@ public class list_activity extends AppCompatActivity {
     private void init(){
         txtListSearch = (EditText) findViewById(R.id.txtListSearch);
         imgListSearch = (ImageView) findViewById(R.id.imgListSearch);
-        imgListBack = (ImageView) findViewById(R.id.imgDetailBack);
+        imgListBack = (ImageView) findViewById(R.id.imgListBack);
         listView = (ListView) findViewById(R.id.listView);
 
         //populating listView
@@ -72,18 +72,18 @@ public class list_activity extends AppCompatActivity {
         });
 
         //Back ImageView clicked
-        /*imgListBack.setOnClickListener(new View.OnClickListener() {
+        imgListBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"=list_activity imgListBack onClick()");
             }
-        });*/
+        });
 
         //ListView item selected
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Log.d(TAG,"=list_activity listView item selected: \n"+i+") "+listView.getItemAtPosition(i).toString());
+                Log.d(TAG,"=list_activity listView item selected: \n"+i+") "+listView.getItemAtPosition(i).toString());
             }
         });
     }
