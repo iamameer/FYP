@@ -72,18 +72,18 @@ public class list_activity extends AppCompatActivity {
         });
 
         //Back ImageView clicked
-        imgListBack.setOnClickListener(new View.OnClickListener() {
+        /*imgListBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"=list_activity imgListBack onClick()");
             }
-        });
+        });*/
 
         //ListView item selected
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(TAG,"=list_activity listView item selected: \n"+i+") "+listView.getItemAtPosition(i).toString());
+                //Log.d(TAG,"=list_activity listView item selected: \n"+i+") "+listView.getItemAtPosition(i).toString());
             }
         });
     }
