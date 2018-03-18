@@ -14,15 +14,15 @@ public class Hospital {
     private int _id;
     private String name;
     private String description;
-    private float latitude;
-    private float longitude;
-    private float distance;
+    private double latitude;
+    private double longitude;
+    private double distance;
 
     //empty constructor
     public Hospital(){}
 
     //full pledged constructor
-    public Hospital(int _id, String name, String description, float latitude, float longitude, float distance){
+    public Hospital(int _id, String name, String description, double latitude, double longitude, double distance){
         this._id = _id;
         this.name = name;
         this.description = description;
@@ -32,7 +32,7 @@ public class Hospital {
     }
 
     //constructor without ID
-    public Hospital(String name, String description, float latitude, float longitude, float distance){
+    public Hospital(String name, String description, double latitude, double longitude, double distance){
         this.name = name;
         this.description = description;
         this.latitude = latitude;
@@ -67,32 +67,32 @@ public class Hospital {
     }
 
     //get the latitude
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
     //set the latitude
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
     //get the longitude
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
     //set the longitude
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
     //get the distance
-    public float getDistance() {
+    public double getDistance() {
         return distance;
     }
 
     //update the distance
-    public void setDistance(float distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 }

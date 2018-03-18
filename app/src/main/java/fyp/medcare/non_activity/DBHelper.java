@@ -27,7 +27,8 @@ public class DBHelper extends SQLiteOpenHelper{
     private ContentResolver myCR;
 
     //The database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
+    private final static String TAG = "MEDCARE";
 
     //public constructor
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -38,14 +39,14 @@ public class DBHelper extends SQLiteOpenHelper{
     //this method initializes the table
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String SQL_CREATE_ENTRIES = "CREATE TABLE" +
+        String SQL_CREATE_ENTRIES = "CREATE TABLE " +
                 HospitalContract.HospitalEntry.TABLE_NAME + "(" +
-                HospitalContract.HospitalEntry.COLUMN_NAME_ID + "INTEGER PRIMARY KEY,"+
-                HospitalContract.HospitalEntry.COLUMN_NAME_NAME + "TEXT,"+
-                HospitalContract.HospitalEntry.COLUMN_NAME_DESCRIPTION + "TEXT,"+
-                HospitalContract.HospitalEntry.COLUMN_NAME_LATITUDE + "FLOAT" +
-                HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE + "FLOAT" +
-                HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE + "FLOAT" +")";
+                HospitalContract.HospitalEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY,"+
+                HospitalContract.HospitalEntry.COLUMN_NAME_NAME + " TEXT,"+
+                HospitalContract.HospitalEntry.COLUMN_NAME_DESCRIPTION + " TEXT,"+
+                HospitalContract.HospitalEntry.COLUMN_NAME_LATITUDE + " DOUBLE," +
+                HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE + " DOUBLE," +
+                HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE + " DOUBLE" +")";
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
     }
 
@@ -69,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     //this method return a Hospital as object
-    public Hospital findHospital(int _id){
+    public Hospital findHospital(String hospitalName){
         String[] projection = {
             HospitalContract.HospitalEntry.COLUMN_NAME_ID,
             HospitalContract.HospitalEntry.COLUMN_NAME_NAME,
@@ -78,7 +79,7 @@ public class DBHelper extends SQLiteOpenHelper{
             HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE,
             HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE};
 
-        String selection = "_id = \"" +_id+"\"";
+        String selection = "name = \"" +hospitalName+"\"";
 
         Cursor cursor = myCR.query(
                 MyContentProvider.CONTENT_URI,
@@ -95,15 +96,15 @@ public class DBHelper extends SQLiteOpenHelper{
                 hospital.set_id(Integer.parseInt(cursor.getString(0)));
                 hospital.setName(cursor.getString(1));
                 hospital.setDescription(cursor.getString(2));
-                hospital.setLatitude(cursor.getFloat(3));
-                hospital.setLongitude(cursor.getFloat(4));
-                hospital.setDistance(cursor.getFloat(5));
+                hospital.setLatitude(cursor.getDouble(3));
+                hospital.setLongitude(cursor.getDouble(4));
+                hospital.setDistance(cursor.getDouble(5));
                 cursor.close();
             }else{
                 hospital = null;
             }
         }catch (Exception e){
-            Log.d("MedCare",e.toString());
+            Log.d(TAG,e.toString());
         }
         return hospital;
     }
@@ -144,25 +145,26 @@ public class DBHelper extends SQLiteOpenHelper{
 
         Cursor cursor = myCR.query(
                 MyContentProvider.CONTENT_URI,projection,null,null,null);
+        Log.d(TAG,"=list_activity >>CURSOR QUERY");
 
         ArrayList<Hospital> result = new ArrayList<Hospital>();
         try{
             if(cursor.moveToFirst()){
-                Log.d("MedCare","cursor : inside IF");
+                Log.d(TAG,"cursor : inside IF");
                 do{
                     Hospital hospital = new Hospital();
-                    Log.d("MyTracker","cursor: inside DO");
+                    Log.d(TAG,"cursor: inside DO");
                     hospital.set_id(Integer.parseInt(cursor.getString(0)));
                     hospital.setName(cursor.getString(1));
                     hospital.setDescription(cursor.getString(2));
-                    hospital.setLatitude(cursor.getFloat(3));
-                    hospital.setLongitude(cursor.getFloat(4));
-                    hospital.setDistance(cursor.getFloat(5));
+                    hospital.setLatitude(cursor.getDouble(3));
+                    hospital.setLongitude(cursor.getDouble(4));
+                    hospital.setDistance(cursor.getDouble(5));
                     result.add(hospital);
                 }while(cursor.moveToNext());
             }cursor.close();
         }catch (Exception e){
-            Log.d("MedCare",e.toString());
+            Log.d(TAG,e.toString());
         }
         return result;
     }

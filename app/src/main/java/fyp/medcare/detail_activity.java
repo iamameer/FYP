@@ -18,6 +18,7 @@ import android.widget.TextView;
 public class detail_activity extends AppCompatActivity {
 
     //Global Variables
+    private String description;
     private ImageView imgDetailPic, imgDetailBack;
     private TextView txtDetailDesc;
 
@@ -28,6 +29,8 @@ public class detail_activity extends AppCompatActivity {
         imgDetailPic = (ImageView) findViewById(R.id.imgDetailPic);
         imgDetailBack = (ImageView) findViewById(R.id.imgDetailBack);
         txtDetailDesc = (TextView) findViewById(R.id.txtDetailDesc);
+
+       txtDetailDesc.setText(getIntent().getStringExtra("description"));
     }
 
     //setting up methods
@@ -45,7 +48,7 @@ public class detail_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_activity);
+        setContentView(R.layout.activity_detail_activity);
 
         init();
         setEvents();
