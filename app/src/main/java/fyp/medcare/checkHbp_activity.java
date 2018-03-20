@@ -1,5 +1,5 @@
 /*
- * appointment_activity :
+ * checkHbp_activity :
  *
  * Methods          :  init()         : initialize variable
  *                     setEvents()    : setting up listeners
@@ -11,9 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class appointment_activity extends AppCompatActivity {
+public class checkHbp_activity extends AppCompatActivity {
 
     //Global Variables
+    private final static String TAG = "MEDCARE";
 
     //Initialising variables
     private void init(){
@@ -25,58 +26,56 @@ public class appointment_activity extends AppCompatActivity {
 
     }
 
-    //Activity Lifecycle onCreate()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_activity);
+        setContentView(R.layout.activity_check_hbp_activity);
 
         init();
         setEvents();
-        Log.d("MedCare","=appointment_activity onCreate()");
+        Log.d(TAG,"=checkBmi_activity onCreate()");
     }
 
     //Activity Lifecycle onStart()
     @Override
     protected void onStart(){
         super.onStart();
-        Log.d("MyTracker","=appointment_activity onStart()");
+        Log.d(TAG,"=checkHbp_activity onStart()");
     }
 
     //Activity Lifecycle onRestart()
     @Override
     protected void onRestart(){
         super.onRestart();
-        Log.d("MyTracker","=appointment_activity onRestart()");
+        Log.d(TAG,"=checkHbp_activity onRestart()");
     }
 
     //Activity Lifecycle onResume()
     @Override
     protected void onResume(){
         super.onResume();
-        Log.d("MyTracker","=appointment_activity onResume()");
+        Log.d(TAG,"=checkHbp_activity onResume()");
     }
 
     //Activity Lifecycle onPause()
     @Override
     protected void onPause(){
         super.onPause();
-        Log.d("MyTracker","=appointment_activity onPause()");
+        Log.d(TAG,"=checkHbp_activity onPause()");
     }
 
     //Activity Lifecycle onStop()
     @Override
     protected void onStop(){
         super.onStop();
-        Log.d("MyTracker","=appointment_activity onStop()");
+        Log.d(TAG,"=checkHbp_activity onStop()");
     }
 
     //Activity Lifecycle onDestroy()
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        Log.d("MyTracker","=appointment_activity onDestroy()");
+        Log.d(TAG,"=checkHbp_activity onDestroy()");
     }
-
 
 }

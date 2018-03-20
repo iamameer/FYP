@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".list_activity" />
         <activity android:name=".detail_activity" />
-        <activity android:name=".appointment_activity" />
         <activity android:name=".check_activity" />
         <activity android:name=".checkBmi_activity" />
 
@@ -36,6 +35,7 @@
             android:enabled="true"
             android:exported="true" />
 
+        <activity android:name=".checkHbp_activity"></activity>
     </application>
 
 </manifest>

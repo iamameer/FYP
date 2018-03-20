@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fyp.medcare.appointment_activity">
+    android:background="@color/colorMint2"
+    tools:context="fyp.medcare.checkHbp_activity">
 
 </android.support.constraint.ConstraintLayout>

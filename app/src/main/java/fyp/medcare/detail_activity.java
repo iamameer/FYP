@@ -30,7 +30,7 @@ public class detail_activity extends AppCompatActivity {
         imgDetailBack = (ImageView) findViewById(R.id.imgDetailBack);
         txtDetailDesc = (TextView) findViewById(R.id.txtDetailDesc);
 
-       txtDetailDesc.setText(getIntent().getStringExtra("description"));
+        txtDetailDesc.setText(getIntent().getStringExtra("description"));
     }
 
     //setting up methods

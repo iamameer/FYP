@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MedCare</string>
+
+    <string name="empty"> </string>
+
+    <string name="last_read">Last read: </string>
+
+    <string name="height_label">Your height (cm): </string>
+    <string name="weight_label">Your weight (kg): </string>
+    <string name="calculate">Calculate</string>
+    <string name="bmi_result">Your BMI is: </string>
 </resources>
