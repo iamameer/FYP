@@ -8,6 +8,16 @@
     tools:context="fyp.medcare.check_activity">
 
     <ImageView
+        android:id="@+id/imgCheckBack"
+        android:layout_width="72dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/icon_back" />
+
+    <ImageView
         android:id="@+id/imgCheckHBP"
         android:layout_width="111dp"
         android:layout_height="109dp"
@@ -15,7 +25,7 @@
         android:layout_marginTop="140dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/icon_hbp" />
 
     <ImageView
         android:id="@+id/imgCheckBMI"
@@ -25,15 +35,15 @@
         android:layout_marginTop="140dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/icon_bmi" />
 
     <TextView
         android:id="@+id/txtCheckBMILast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="276dp"
-        android:text="@string/last_read"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="256dp"
+        android:text="@string/calcbmi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,9 +51,9 @@
         android:id="@+id/txtCheckHBPLast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="244dp"
-        android:layout_marginTop="276dp"
-        android:text="@string/last_read"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="256dp"
+        android:text="@string/checkhbp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

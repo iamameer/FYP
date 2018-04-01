@@ -15,7 +15,7 @@
         android:layout_marginTop="84dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/icon_list" />
 
     <ImageView
         android:id="@+id/imgMainCheck"
@@ -26,7 +26,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/icon_check" />
 
     <ImageView
         android:id="@+id/imgMainCall"
@@ -37,5 +37,32 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/icon_call" />
+
+    <TextView
+        android:id="@+id/txtMainList"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="64dp"
+        android:text="@string/hosp_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgMainList" />
+
+    <TextView
+        android:id="@+id/txtMainCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="244dp"
+        android:text="@string/check"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgMainCheck" />
+
+    <TextView
+        android:id="@+id/txtMainCall"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="148dp"
+        android:text="@string/call"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgMainCall" />
 </android.support.constraint.ConstraintLayout>

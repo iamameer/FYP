@@ -2,8 +2,13 @@
     <string name="app_name">MedCare</string>
 
     <string name="empty"> </string>
+    
+    <string name="hosp_list">Hospital List</string>
+    <string name="check">Check Health</string>
+    <string name="call">Emergency Call</string>
 
-    <string name="last_read">Last read: </string>
+    <string name="calcbmi">Calculate BMI</string>
+    <string name="checkhbp">Check Blood Pressure</string>
 
     <string name="height_label">Your height (cm): </string>
     <string name="weight_label">Your weight (kg): </string>

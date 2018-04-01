@@ -20,7 +20,7 @@ import org.w3c.dom.Text;
 public class check_activity extends AppCompatActivity {
 
     //Global Variables
-    private ImageView imgCheckBMI, imgCheckHBP;
+    private ImageView imgCheckBMI, imgCheckHBP, imgCheckBack;
     private TextView txtCheckBMILast, txtCheckHBPLast;
 
     private final static String TAG = "MEDCARE";
@@ -29,11 +29,11 @@ public class check_activity extends AppCompatActivity {
     private void init(){
         imgCheckBMI = (ImageView) findViewById(R.id.imgCheckBMI);
         imgCheckHBP = (ImageView) findViewById(R.id.imgCheckHBP);
+        imgCheckBack = (ImageView) findViewById(R.id.imgCheckBack);
 
         txtCheckBMILast = (TextView) findViewById(R.id.txtCheckBMILast);
         txtCheckHBPLast = (TextView) findViewById(R.id.txtCheckHBPLast);
 
-        //TODO: txt set get from database?
     }
 
     //setting up methods

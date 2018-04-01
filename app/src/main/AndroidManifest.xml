@@ -35,7 +35,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".checkHbp_activity"></activity>
+        <activity android:name=".checkHbp_activity"/>
     </application>
 
 </manifest>

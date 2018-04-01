@@ -40,7 +40,6 @@ public class checkBmi_activity extends AppCompatActivity {
         btnBMICalc = (Button) findViewById(R.id.btnBMICalc);
 
         imgBMIBack = (ImageView) findViewById(R.id.imgBMIBack);
-
     }
 
     //setting up methods

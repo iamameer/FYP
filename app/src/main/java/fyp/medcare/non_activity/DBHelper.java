@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper{
     private ContentResolver myCR;
 
     //The database version.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     private final static String TAG = "MEDCARE";
 
     //public constructor
