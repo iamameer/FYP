@@ -267,7 +267,34 @@ public class list_activity extends AppCompatActivity {
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             initLat = location.getLatitude();
             initLong = location.getLongitude();
+
+            Location location1 = new Location("");
+            location1.setLatitude(initLat);
+            location1.setLongitude(initLong);
+
             Log.d(TAG, "######INIT LAT: " + initLat + " #####INIT LONG: " + initLong);
+
+            //STARTING UPDATE
+            DBHelper dbHelper = new DBHelper(getApplicationContext(),null,null,1);
+            ArrayList<Hospital> hospitalArrayList = dbHelper.display();
+            if (hospitalArrayList!=null){
+                for (int i= 0; i<hospitalArrayList.size(); i++){
+                    //hospital.add(hospitalArrayList.get(i).getName());
+                    newLat = hospitalArrayList.get(i).getLatitude();
+                    newLong = hospitalArrayList.get(i).getLongitude();
+
+                    Location location2 = new Location("");
+                    location2.setLatitude(newLat);
+                    location2.setLongitude(newLong);
+
+                    distance = location1.distanceTo(location2);
+                    dbHelper.updateHospitalDistance(i,distance);
+                    Log.d(TAG,hospitalArrayList.get(i).getName()+" UPDATED>> "+distance);
+                }
+            }else{
+                Log.d(TAG,"=list_activity: [[[[[Empty database]]]]");
+            }
+
         }catch (Exception e){
             Log.d(TAG,e.toString());
         }

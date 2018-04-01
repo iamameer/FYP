@@ -121,7 +121,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     //this method update the distance of current Hospital
-    public boolean updateHospitalDistance(int _id,float distance){
+    public boolean updateHospitalDistance(int _id,double distance){
         boolean result = false;
         String selection = "_id = \""+_id+" \"";
         ContentValues values = new ContentValues();
@@ -143,8 +143,12 @@ public class DBHelper extends SQLiteOpenHelper{
                 HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE,
                 HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE};
 
-        Cursor cursor = myCR.query(
-                MyContentProvider.CONTENT_URI,projection,null,null,null);
+        String query = "SELECT * FROM "+ HospitalContract.HospitalEntry.TABLE_NAME+" ORDER BY "+
+                HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE+" ASC";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query,null);
+                /* myCR.query(
+                MyContentProvider.CONTENT_URI,projection,null,null,null);*/
         Log.d(TAG,"=list_activity >>CURSOR QUERY");
 
         ArrayList<Hospital> result = new ArrayList<Hospital>();
