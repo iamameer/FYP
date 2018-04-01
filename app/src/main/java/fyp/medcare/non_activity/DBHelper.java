@@ -150,10 +150,10 @@ public class DBHelper extends SQLiteOpenHelper{
         ArrayList<Hospital> result = new ArrayList<Hospital>();
         try{
             if(cursor.moveToFirst()){
-                Log.d(TAG,"cursor : inside IF");
+                //Log.d(TAG,"cursor : inside IF");
                 do{
                     Hospital hospital = new Hospital();
-                    Log.d(TAG,"cursor: inside DO");
+                    //Log.d(TAG,"cursor: inside DO");
                     hospital.set_id(Integer.parseInt(cursor.getString(0)));
                     hospital.setName(cursor.getString(1));
                     hospital.setDescription(cursor.getString(2));

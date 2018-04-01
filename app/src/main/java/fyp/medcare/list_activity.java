@@ -7,7 +7,18 @@
 
 package fyp.medcare;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.icu.text.LocaleDisplayNames;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +49,14 @@ public class list_activity extends AppCompatActivity {
     private ImageView imgListSearch, imgListBack;
     private ListView listView;
 
+    private LocationListener listener;
+    private LocationManager locationManager;
+
+    private double initLong,initLat, newLong, newLat;
+    private double distance;
+
     private final static String TAG = "MEDCARE";
+    private static final int PERM_ID = 99;
 
     //Initialising variables
     private void init(){
@@ -128,6 +147,7 @@ public class list_activity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         Log.d(TAG,"=list_activity onResume()");
+        updateDistance();
         display();
         Log.d(TAG,"=DATABASE DISPLAY");
     }
@@ -164,10 +184,10 @@ public class list_activity extends AppCompatActivity {
 
             //display if the list is not empty, else simply state empty
             if (hospitalArrayList!=null){
-                Log.d(TAG,"=list_activity >>IN THE IF...");
+                //Log.d(TAG,"=list_activity >>IN THE IF...");
                 List<String> hospital = new ArrayList<String>();
                 for (int i= 0; i<hospitalArrayList.size(); i++){
-                    Log.d(TAG,"=list_activity >>IN THE FOR...");
+                    //Log.d(TAG,"=list_activity >>IN THE FOR...");
                     hospital.add(hospitalArrayList.get(i).getName());
                 }
                 ArrayAdapter<String> adapter =
@@ -207,6 +227,84 @@ public class list_activity extends AppCompatActivity {
             }
         }catch (Exception e){
             Log.d(TAG,e.toString());
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void updateDistance(){
+        try {
+            check_permission();
+            Log.d(TAG, "=list_activity >> UPDATING DISTANCE");
+
+            //calculating distance
+            listener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Log.d(TAG, "=list_activity: onLocationChanged");
+                    Log.d(TAG, "######INIT LAT: " + initLat + " #####INIT LONG: " + initLong);
+                }
+
+                @Override
+                public void onStatusChanged(String s, int i, Bundle bundle) {
+                    Log.d(TAG, "=list_activity: onStatusChanged");
+                }
+
+                @Override
+                public void onProviderEnabled(String s) {
+                    Log.d(TAG, "=list_activity: onProviderEnabled");
+                }
+
+                @Override
+                public void onProviderDisabled(String s) {
+                    Log.d(TAG, "=list_activity: onProviderDisabled");
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            };
+            locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, listener);
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            initLat = location.getLatitude();
+            initLong = location.getLongitude();
+            Log.d(TAG, "######INIT LAT: " + initLat + " #####INIT LONG: " + initLong);
+        }catch (Exception e){
+            Log.d(TAG,e.toString());
+        }
+    }
+
+    private void check_permission(){
+        if (ContextCompat.checkSelfPermission(list_activity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(list_activity.this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(list_activity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale(list_activity.this,
+                            Manifest.permission.ACCESS_COARSE_LOCATION)){
+                ActivityCompat.requestPermissions(list_activity.this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},PERM_ID);
+                ActivityCompat.requestPermissions(list_activity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERM_ID);
+            }else{
+                ActivityCompat.requestPermissions(list_activity.this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},PERM_ID);
+                ActivityCompat.requestPermissions(list_activity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERM_ID);
+            }
+        }else{Log.d(TAG,"####ACCESS GRANTED####");}
+    }
+
+    //Method overriding - during listing and permission request
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults){
+        if(requestCode == PERM_ID){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                Log.d(TAG,"####ACCESS GRANTED####");
+            }else{
+                check_permission();
+            }
         }
     }
 
