@@ -30,11 +30,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <service
-            android:name=".non_activity.MedCareService"
-            android:enabled="true"
-            android:exported="true" />
-
         <activity android:name=".checkHbp_activity"/>
     </application>
 
