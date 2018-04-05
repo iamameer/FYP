@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper{
     private ContentResolver myCR;
 
     //The database version.
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 5;
     private final static String TAG = "MEDCARE";
 
     //public constructor
@@ -46,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper{
                 HospitalContract.HospitalEntry.COLUMN_NAME_DESCRIPTION + " TEXT,"+
                 HospitalContract.HospitalEntry.COLUMN_NAME_LATITUDE + " DOUBLE," +
                 HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE + " DOUBLE," +
-                HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE + " DOUBLE" +")";
+                HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE + " FLOAT" +")";
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
     }
 
@@ -98,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper{
                 hospital.setDescription(cursor.getString(2));
                 hospital.setLatitude(cursor.getDouble(3));
                 hospital.setLongitude(cursor.getDouble(4));
-                hospital.setDistance(cursor.getDouble(5));
+                hospital.setDistance(cursor.getFloat(5));
                 cursor.close();
             }else{
                 hospital = null;
@@ -121,7 +121,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     //this method update the distance of current Hospital
-    public boolean updateHospitalDistance(int _id,double distance){
+    public boolean updateHospitalDistance(int _id,float distance){
         boolean result = false;
         String selection = "_id = \""+_id+" \"";
         ContentValues values = new ContentValues();
@@ -163,7 +163,7 @@ public class DBHelper extends SQLiteOpenHelper{
                     hospital.setDescription(cursor.getString(2));
                     hospital.setLatitude(cursor.getDouble(3));
                     hospital.setLongitude(cursor.getDouble(4));
-                    hospital.setDistance(cursor.getDouble(5));
+                    hospital.setDistance(cursor.getFloat(5));
                     result.add(hospital);
                 }while(cursor.moveToNext());
             }cursor.close();

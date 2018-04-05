@@ -53,7 +53,7 @@ public class list_activity extends AppCompatActivity {
     private LocationManager locationManager;
 
     private double initLong,initLat, newLong, newLat;
-    private double distance;
+    private float distance;
 
     private final static String TAG = "MEDCARE";
     private static final int PERM_ID = 99;
@@ -338,8 +338,8 @@ public class list_activity extends AppCompatActivity {
     private void addData(){
         DBHelper dbHelper = new DBHelper(getApplicationContext(),null,null,1);
 
-        //Hospital hospital = new Hospital("Hospital Test","Description Test",1.234556,1.234567,5.555555);
-        /*Hospital hospital0 = new Hospital("Hospital Tuanku Fauziah,Kangar","Jalan Tun Abdul Razak, Pusat Bandar Kangar, 01000 Kangar, Perlis",6.440989,100.191254,0);
+        /*
+        Hospital hospital0 = new Hospital("Hospital Tuanku Fauziah,Kangar","Jalan Tun Abdul Razak, Pusat Bandar Kangar, 01000 Kangar, Perlis",6.440989,100.191254,0);
 
         Hospital hospital1 = new Hospital("Hospital Sultanah Bahiyah, Alor Setar","Km 6, Jln Langgar, Bandar Alor Setar, 05460 Alor Setar, Kedah",6.148825,100.406373,0);
         Hospital hospital2 = new Hospital("Hospital Sultan Abdul Halim, Sg Petani","225, Bandar Amanjaya, 08000 Sungai Petani, Kedah",5.669582,100.517415,0);
@@ -480,7 +480,7 @@ public class list_activity extends AppCompatActivity {
         Hospital hospital125 = new Hospital("Hospital Kanowit","Jalan Kanowit / Durin, 96700 Kanowit, Sarawak",2.102758,112.152314,0);
         Hospital hospital126 = new Hospital("Hospital Bintulu","Jalan Bkt Nyabau, 97000 Bintulu, Sarawak",3.229696,113.101030,0);
         Hospital hospital127 = new Hospital("Hospital Marudi","Hospital Marudi, Jalan Pungor, Marudi, 98050, Baram, Sarawak",4.178408,114.325355,0);
-        Hospital hospital128 = new Hospital("Hospital Lawas","115.404591",4.854395,115.404591,0);
+        Hospital hospital128 = new Hospital("Hospital Lawas","Jalan Hospital, 98850 Lawas, Sarawak",4.854395,115.404591,0);
         Hospital hospital129 = new Hospital("Hospital Bau","Batu 1 1/2, Jalan Bau-Lundu, Bau, Kuching, 94000, Bau, Sarawak",1.429501,110.142643,0);
         Hospital hospital130 = new Hospital("Hospital Simunjan","94800 Simunjan, Sarawak",1.369378,110.785667,0);
         Hospital hospital131 = new Hospital("Hospital Betong","Betong, 95700 Betong, Sarawak",1.374370,111.574001,0);
@@ -499,10 +499,10 @@ public class list_activity extends AppCompatActivity {
         Hospital hospital143 = new Hospital("Institut Kanser Negara","4, Jalan P7, Presint 7, 62250 Putrajaya, Wilayah Persekutuan Putrajaya",2.927055,101.673623,0);
         Hospital hospital144 = new Hospital("Pusat Darah Negara","Jalan Tun Razak, Titiwangsa, 50400 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur",3.173147,101.706340,0);
         Hospital hospital145 = new Hospital("Hospital Tuanku Fauziah","Jalan Tun Abdul Razak, Pusat Bandar Kangar, 01000 Kangar, Perlis",6.440989,100.191254,0);
-        */
+
 
         try{
-            /*dbHelper.addHospital(hospital0);
+            dbHelper.addHospital(hospital0);
             dbHelper.addHospital(hospital1);
             dbHelper.addHospital(hospital2);
             dbHelper.addHospital(hospital3);
@@ -661,10 +661,10 @@ public class list_activity extends AppCompatActivity {
             dbHelper.addHospital(hospital142);
             dbHelper.addHospital(hospital143);
             dbHelper.addHospital(hospital144);
-            dbHelper.addHospital(hospital145); */
+            dbHelper.addHospital(hospital145);
 
         }catch (Exception e){
             Log.d(TAG,e.toString());
-        }
+        } */
     }
 }
