@@ -57,6 +57,13 @@ public class check_activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        imgCheckBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     //Activity Lifecycle onCreate()
