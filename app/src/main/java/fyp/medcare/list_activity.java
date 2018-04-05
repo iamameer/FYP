@@ -94,7 +94,7 @@ public class list_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"=list_activity imgListSearch onClick()");
-                //addData();
+                addData();
             }
         });
 
@@ -147,7 +147,7 @@ public class list_activity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         Log.d(TAG,"=list_activity onResume()");
-        updateDistance();
+        //updateDistance();
         display();
         Log.d(TAG,"=DATABASE DISPLAY");
     }
@@ -179,6 +179,7 @@ public class list_activity extends AppCompatActivity {
         Log.d(TAG,"=list_activity >>DBHELPER CREATED");
 
         try{
+            updateDistance();
             ArrayList<Hospital> hospitalArrayList = dbHelper.display();
             Log.d(TAG,"=list_activity >>ARRAY display()");
 
@@ -279,7 +280,6 @@ public class list_activity extends AppCompatActivity {
             ArrayList<Hospital> hospitalArrayList = dbHelper.display();
             if (hospitalArrayList!=null){
                 for (int i= 0; i<hospitalArrayList.size(); i++){
-                    //hospital.add(hospitalArrayList.get(i).getName());
                     newLat = hospitalArrayList.get(i).getLatitude();
                     newLong = hospitalArrayList.get(i).getLongitude();
 
@@ -338,7 +338,7 @@ public class list_activity extends AppCompatActivity {
     private void addData(){
         DBHelper dbHelper = new DBHelper(getApplicationContext(),null,null,1);
 
-        /*
+
         Hospital hospital0 = new Hospital("Hospital Tuanku Fauziah,Kangar","Jalan Tun Abdul Razak, Pusat Bandar Kangar, 01000 Kangar, Perlis",6.440989,100.191254,0);
 
         Hospital hospital1 = new Hospital("Hospital Sultanah Bahiyah, Alor Setar","Km 6, Jln Langgar, Bandar Alor Setar, 05460 Alor Setar, Kedah",6.148825,100.406373,0);
@@ -498,8 +498,7 @@ public class list_activity extends AppCompatActivity {
         Hospital hospital142 = new Hospital("Hospital Wanita dan Kanak-kanak, Likas","187, Sabah Karung Berkunci, 88996 Kota Kinabalu, Sabah",6.013791,116.119535,0);
         Hospital hospital143 = new Hospital("Institut Kanser Negara","4, Jalan P7, Presint 7, 62250 Putrajaya, Wilayah Persekutuan Putrajaya",2.927055,101.673623,0);
         Hospital hospital144 = new Hospital("Pusat Darah Negara","Jalan Tun Razak, Titiwangsa, 50400 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur",3.173147,101.706340,0);
-        Hospital hospital145 = new Hospital("Hospital Tuanku Fauziah","Jalan Tun Abdul Razak, Pusat Bandar Kangar, 01000 Kangar, Perlis",6.440989,100.191254,0);
-
+        Hospital hospital145 = new Hospital("Institut Jantung Negara","B, 145, Jalan Tun Razak, 50400 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur",3.169999,101.709425,0);
 
         try{
             dbHelper.addHospital(hospital0);
@@ -665,6 +664,6 @@ public class list_activity extends AppCompatActivity {
 
         }catch (Exception e){
             Log.d(TAG,e.toString());
-        } */
+        }
     }
 }

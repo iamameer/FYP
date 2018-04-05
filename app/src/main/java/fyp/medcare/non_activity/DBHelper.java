@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper{
     private ContentResolver myCR;
 
     //The database version.
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 7;
     private final static String TAG = "MEDCARE";
 
     //public constructor
@@ -70,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     //this method return a Hospital as object
-    public Hospital findHospital(String hospitalName){
+    public Hospital findHospital(String hospitalname){
         String[] projection = {
             HospitalContract.HospitalEntry.COLUMN_NAME_ID,
             HospitalContract.HospitalEntry.COLUMN_NAME_NAME,
@@ -79,7 +79,7 @@ public class DBHelper extends SQLiteOpenHelper{
             HospitalContract.HospitalEntry.COLUMN_NAME_LONGITUDE,
             HospitalContract.HospitalEntry.COLUMN_NAME_DISTANCE};
 
-        String selection = "name = \"" +hospitalName+"\"";
+        String selection = "name = \"" +hospitalname+"\"";
 
         Cursor cursor = myCR.query(
                 MyContentProvider.CONTENT_URI,
@@ -154,10 +154,8 @@ public class DBHelper extends SQLiteOpenHelper{
         ArrayList<Hospital> result = new ArrayList<Hospital>();
         try{
             if(cursor.moveToFirst()){
-                //Log.d(TAG,"cursor : inside IF");
                 do{
                     Hospital hospital = new Hospital();
-                    //Log.d(TAG,"cursor: inside DO");
                     hospital.set_id(Integer.parseInt(cursor.getString(0)));
                     hospital.setName(cursor.getString(1));
                     hospital.setDescription(cursor.getString(2));
