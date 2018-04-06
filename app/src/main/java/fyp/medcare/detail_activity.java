@@ -15,22 +15,35 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class detail_activity extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class detail_activity extends AppCompatActivity implements OnMapReadyCallback{
 
     //Global Variables
     private String description;
     private ImageView imgDetailPic, imgDetailBack;
     private TextView txtDetailDesc;
 
+    private GoogleMap gMap;
+
     private final static String TAG = "MEDCARE";
 
     //Initialising variables
     private void init(){
-        imgDetailPic = (ImageView) findViewById(R.id.imgDetailPic);
+        //imgDetailPic = (ImageView) findViewById(R.id.imgDetailPic);
         imgDetailBack = (ImageView) findViewById(R.id.imgDetailBack);
         txtDetailDesc = (TextView) findViewById(R.id.txtDetailDesc);
 
         txtDetailDesc.setText(getIntent().getStringExtra("description"));
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     //setting up methods
@@ -98,4 +111,13 @@ public class detail_activity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        gMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        gMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
 }
