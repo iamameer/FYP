@@ -94,7 +94,7 @@ public class list_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"=list_activity imgListSearch onClick()");
-                addData();
+                //addData();
             }
         });
 
@@ -216,9 +216,14 @@ public class list_activity extends AppCompatActivity {
 
             if (hospital != null){
                 Intent intent = new Intent(getApplicationContext(),detail_activity.class);
-                /*intent.putExtra("id",hospital.get_id());
-                intent.putExtra("name",hospital.getName());*/
+                intent.putExtra("name",hospital.getName());
                 intent.putExtra("description",hospital.getDescription());
+                intent.putExtra("latitude",hospital.getLatitude());
+                intent.putExtra("longitude",hospital.getLongitude());
+                if(initLat!=0 && initLong!=0){
+                    intent.putExtra("initLat",initLat);
+                    intent.putExtra("initLong",initLong);
+                }
                 Log.d(TAG,"SENDING: "+hospital.getDescription());
                 startActivity(intent);
                 finish();

@@ -26,6 +26,7 @@ public class detail_activity extends AppCompatActivity implements OnMapReadyCall
 
     //Global Variables
     private String description;
+    private double latitude, longitude, initLat, initLong;
     private ImageView imgDetailPic, imgDetailBack;
     private TextView txtDetailDesc;
 
@@ -35,11 +36,18 @@ public class detail_activity extends AppCompatActivity implements OnMapReadyCall
 
     //Initialising variables
     private void init(){
-        //imgDetailPic = (ImageView) findViewById(R.id.imgDetailPic);
         imgDetailBack = (ImageView) findViewById(R.id.imgDetailBack);
         txtDetailDesc = (TextView) findViewById(R.id.txtDetailDesc);
 
-        txtDetailDesc.setText(getIntent().getStringExtra("description"));
+        description = getIntent().getStringExtra("name")+"\n\n"
+                +getIntent().getStringExtra("description");
+        txtDetailDesc.setText(description);
+
+        latitude = getIntent().getDoubleExtra("latitude",0);
+        longitude = getIntent().getDoubleExtra("longitude",0);
+
+        initLat = getIntent().getDoubleExtra("initLat",0);
+        initLong = getIntent().getDoubleExtra("initLong",0);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -116,7 +124,8 @@ public class detail_activity extends AppCompatActivity implements OnMapReadyCall
         gMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+        LatLng sydney = new LatLng(latitude, longitude);
+        Log.d(TAG,"@@@@MARKERRRRRRR: "+latitude+" || "+longitude);
         gMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         gMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
