@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class detail_activity extends AppCompatActivity implements OnMapReadyCallback{
@@ -124,9 +125,13 @@ public class detail_activity extends AppCompatActivity implements OnMapReadyCall
         gMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(latitude, longitude);
+        LatLng marker = new LatLng(latitude, longitude);
+        //LatLng marker2 = new LatLng(initLat,initLong);
         Log.d(TAG,"@@@@MARKERRRRRRR: "+latitude+" || "+longitude);
-        gMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        gMap.addMarker(new MarkerOptions()
+                        .position(marker)
+                        .title(getIntent().getStringExtra("name"))
+                        );
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
     }
 }
