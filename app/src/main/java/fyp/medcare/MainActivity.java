@@ -9,11 +9,13 @@
 package fyp.medcare;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,20 +33,20 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MEDCARE";
 
     //Initialising variables
-    private void init(){
+    private void init() {
         imgMainList = (ImageView) findViewById(R.id.imgMainList);
         imgMainCheck = (ImageView) findViewById(R.id.imgMainCheck);
         imgMainCall = (ImageView) findViewById(R.id.imgMainCall);
     }
 
     //setting up methods
-    private void setEvents(){
+    private void setEvents() {
         //starting list_activity
         imgMainList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG,"=MainActivity imgMainList onClick()");
-                Intent intent = new Intent(MainActivity.this,list_activity.class);
+                Log.d(TAG, "=MainActivity imgMainList onClick()");
+                Intent intent = new Intent(MainActivity.this, list_activity.class);
                 startActivity(intent);
             }
         });
@@ -53,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         imgMainCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG,"=MainActivity imgMainCheck onClick()");
-                Intent intent = new Intent(MainActivity.this,check_activity.class);
+                Log.d(TAG, "=MainActivity imgMainCheck onClick()");
+                Intent intent = new Intent(MainActivity.this, check_activity.class);
                 startActivity(intent);
             }
         });
@@ -63,14 +65,18 @@ public class MainActivity extends AppCompatActivity {
         imgMainCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG,"=MainActivity imgMainCall onClick()");
+                Log.d(TAG, "=MainActivity imgMainCall onClick()");
                 emergency_call();
             }
         });
     }
 
-    private void emergency_call(){
-        Log.d(TAG,"=MainActivity: Emergency call started");
+    @SuppressLint("MissingPermission")
+    private void emergency_call() {
+        Log.d(TAG, "=MainActivity: Emergency call started");
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:123"));
+        startActivity(callIntent);
     }
 
     //Activity Lifecycle onCreate()
@@ -81,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         setEvents();
+        check_permission();
         Log.d(TAG,"=MainActivity onCreate()");
     }
 
@@ -117,6 +124,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy(){
         super.onDestroy();
         Log.d(TAG,"=MainActivity onDestroy()");
+    }
+
+    private void check_permission(){
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.CALL_PHONE)){
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.CALL_PHONE},99);
+            }else{
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.CALL_PHONE},99);
+            }
+        }else{Log.d(TAG,"####ACCESS GRANTED####");}
     }
 
 }

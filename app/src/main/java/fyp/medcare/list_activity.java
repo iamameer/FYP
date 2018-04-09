@@ -71,21 +71,12 @@ public class list_activity extends AppCompatActivity {
 
     //setting up methods
     private void setEvents(){
-        //search while text change
-        txtListSearch.addTextChangedListener(new TextWatcher() {
+        //Back ImageView clicked
+        imgListBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
+            public void onClick(View view) {
+                Log.d(TAG,"=list_activity imgListBack onClick()");
+                finish();
             }
         });
 
@@ -95,15 +86,6 @@ public class list_activity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG,"=list_activity imgListSearch onClick()");
                 //addData();
-            }
-        });
-
-        //Back ImageView clicked
-        imgListBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG,"=list_activity imgListBack onClick()");
-                finish();
             }
         });
 
