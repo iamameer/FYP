@@ -73,13 +73,28 @@ public class checkBmi_activity extends AppCompatActivity {
 
     private void calc_BMI(int height, int weight){
         double result, meterHeight;
-        String newText;
+        String newText, description="";
 
         try{
             meterHeight = (double)height /100;
             result = Math.round(((double) weight / (meterHeight*meterHeight))*10d)/10d;
-            newText = "Your BMI is: "+Double.toString(result);
-            txtBMIResult.setText(newText);
+            newText = "Your BMI is: \n"+Double.toString(result);
+
+            if (result <= 0){
+                description = "\n\nInvalid number! Please try again";
+            }else if(result >0 && result<18.5){
+                description = "\n\nYou are underweight.\nTry eat a healthier diet.";
+            }else if(result >=18.5 && result<26){
+                description = "\n\nYou BMI is normal!\nKeep on with your healthy lifestyle!";
+            }else if(result >=26 && result<=30){
+                description = "\n\nYou are Overweight!\nTry exercise more and practice a healthy diet.";
+            }else if(result >30 && result<121){
+                description = "\n\nYou are Obese!\nIf you can't change your lifestyle, try to consult a dietitian";
+            }else {
+                description = "\n\nInvalid number! Please try again";
+            }
+
+            txtBMIResult.setText(newText+description);
             Log.d(TAG,newText);
         }catch(Exception e){
             Log.d(TAG,"=checkBmi_activity: "+e.toString());
