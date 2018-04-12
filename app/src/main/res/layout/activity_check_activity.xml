@@ -41,9 +41,10 @@
         android:id="@+id/txtCheckBMILast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="256dp"
         android:text="@string/calcbmi"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,9 +52,10 @@
         android:id="@+id/txtCheckHBPLast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="208dp"
+        android:layout_marginStart="212dp"
         android:layout_marginTop="256dp"
         android:text="@string/checkhbp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

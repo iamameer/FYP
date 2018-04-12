@@ -40,7 +40,8 @@
             android:layout_width="355dp"
             android:layout_height="90dp"
             android:layout_marginStart="15dp"
-            android:gravity="left" />
+            android:gravity="left"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

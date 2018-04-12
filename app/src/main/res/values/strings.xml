@@ -8,7 +8,7 @@
     <string name="call">Emergency Call</string>
 
     <string name="calcbmi">Calculate BMI</string>
-    <string name="checkhbp">Check Blood Pressure</string>
+    <string name="checkhbp">Check Heartrate</string>
 
     <string name="height_label">Your height (cm): </string>
     <string name="weight_label">Your weight (kg): </string>

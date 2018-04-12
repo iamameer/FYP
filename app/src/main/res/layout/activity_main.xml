@@ -43,8 +43,9 @@
         android:id="@+id/txtMainList"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="56dp"
         android:text="@string/hosp_list"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgMainList" />
 
@@ -52,8 +53,9 @@
         android:id="@+id/txtMainCheck"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="244dp"
+        android:layout_marginStart="228dp"
         android:text="@string/check"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgMainCheck" />
 
@@ -61,8 +63,9 @@
         android:id="@+id/txtMainCall"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="148dp"
+        android:layout_marginStart="128dp"
         android:text="@string/call"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgMainCall" />
 </android.support.constraint.ConstraintLayout>
